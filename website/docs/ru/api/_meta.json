@@ -17,6 +17,6 @@
   {
     "type": "file",
     "name": "commands",
-    "label": "Команды"
+    "label": "commands"
   }
 ]
