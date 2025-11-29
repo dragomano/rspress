@@ -1,0 +1,263 @@
+# @rspress/plugin-preview <SourceCode href="https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-preview" />
+
+import { SourceCode, PackageManagerTabs } from '@rspress/core/theme';
+
+Используется для предварительного просмотра компонентов прямо в блоках кода файлов md(x).
+
+## Установка
+
+<PackageManagerTabs command="add @rspress/plugin-preview -D" />
+
+## Использование
+
+### Регистрация
+
+Сначала добавьте следующую конфигурацию в файл `rspress.config.ts`:
+
+```ts title="rspress.config.ts"
+import { defineConfig } from '@rspress/core';
+import { pluginPreview } from '@rspress/plugin-preview';
+
+export default defineConfig({
+  plugins: [pluginPreview()],
+});
+```
+
+:::warning Внимание
+
+Этот плагин принудительно устанавливает `markdown.mdxRs: false`. В будущем команда Rspress перенесёт этот плагин на версию компилятора на Rust.
+
+:::
+
+### Внутренние компоненты
+
+Код компонентов, используемых внутри документации, объявляется прямо в mdx-файле. Для этого можно использовать следующий блок кода:
+
+````md
+```tsx
+function App() {
+  return <div>Привет, мир</div>;
+}
+
+export default App;
+```
+````
+
+Стоит отметить, что компонент необходимо экспортировать как `export default`, тогда Rspress автоматически отрендерит его.
+
+Но если вы хотите оставить обычный внешний вид блока кода и **не** рендерить его как компонент, можно добавить идентификатор `pure`. Пример использования:
+
+````md
+```tsx pure
+function App() {
+  return <div>Привет, мир</div>;
+}
+export default App;
+```
+````
+
+Если вы установили `defaultRenderMode: 'pure'`, то по умолчанию Rspress **не** будет рендерить такие компоненты, а покажет их как обычные блоки кода. Чтобы в этом режиме всё-таки отрендерить блок как компонент, добавьте идентификатор `preview`. Пример:
+
+````md
+```tsx preview
+function App() {
+  return <div>Привет, мир</div>;
+}
+export default App;
+```
+````
+
+:::tip Подсказка
+Убедитесь, что файл документации имеет расширение `.mdx`.
+:::
+
+### Внешние компоненты
+
+Помимо написания кода компонента прямо в блоке кода mdx-файла, вы можете вынести код компонента в отдельный файл и импортировать его в mdx через метатег `file="./filename"`. Пример:
+
+````md title="example.mdx"
+```tsx file="./Demo.tsx"
+
+```
+````
+
+```tsx title="Demo.tsx"
+export default function App() {
+  return <div>Привет, мир</div>;
+}
+```
+
+Внешние компоненты также должны экспортировать компонент как `export default`. Путь к внешнему файлу указывается через атрибут `src` тега кода. Плагин поддерживает как относительные пути, так и пути через алиасы.
+
+Для более сложных компонентов такой способ с внешними файлами оказывается удобнее.
+
+## Опции
+
+Плагин принимает объект-параметр следующего типа:
+
+```ts
+interface PreviewOptions {
+  previewMode?: 'internal' | 'iframe';
+  iframeOptions?: IframeOptions;
+  defaultRenderMode?: 'pure' | 'preview';
+}
+
+interface IframeOptions {
+  framework?: 'react' | 'solid';
+  position?: 'fixed' | 'follow';
+  devPort?: number;
+}
+```
+
+### defaultRenderMode
+
+Режим рендеринга по умолчанию для внутренних блоков кода, у которых пользователь не указал явно идентификаторы `pure` или `preview`. По умолчанию — `preview`.
+
+- `pure` — отображать как обычный блок кода
+- `preview` — рендерить как компонент
+
+### previewMode
+
+Параметр `previewMode` определяет, в каком виде будет показываться превью. По умолчанию — `internal`. Внешний вид по умолчанию:
+
+![](https://lf3-static.bytednsdoc.com/obj/eden-cn/uhbfnupenuhf/rspress/demo-preview-pc.jpeg)
+
+Также можно задавать режим отдельно для каждого блока кода:
+
+````md title="example.mdx"
+```tsx iframe
+function App() {
+  return <div>Привет, мир</div>;
+}
+export default App;
+```
+````
+
+````md title="example.mdx"
+```tsx file="./demo.tsx" iframe
+
+```
+````
+
+Если `previewMode` установлен в `iframe`, для iframe можно использовать следующие настройки:
+
+### iframeOptions.position
+
+В режиме превью через iframe параметр `iframeOptions.position` определяет положение области предпросмотра: будет ли iframe прокручиваться вместе со страницей (режим `follow`) или оставаться закреплённым на экране (режим `fixed`). По умолчанию — `follow`.
+
+Эффект режима `follow`:
+
+![](https://lf3-static.bytednsdoc.com/obj/eden-cn/uhbfnupenuhf/rspress/demo-preview-mobile-follow.png)
+
+Эффект режима `fixed`:
+
+![](https://lf3-static.bytednsdoc.com/obj/eden-cn/uhbfnupenuhf/rspress/demo-preview-mobile-fixed.png)
+
+### iframeOptions.framework
+
+В режиме iframe-превью можно выбрать фреймворк для рендеринга. На данный момент поддерживаются `react` и `solid`.
+
+### iframeOptions.devPort
+
+В режиме iframe-превью позволяет настроить порт dev-сервера, на котором запускается предпросмотр компонента.
+
+### iframeOptions.builderConfig
+
+Настройки сборки iframe — например, можно добавить глобальный код, стили и т. п.
+
+### iframeOptions.customEntry
+
+Позволяет задать собственный entry-файл, чтобы поддерживать другие Web-фреймворки, отличные от React/Solid (например, Vue).
+
+`customEntry` работает только при `iframeOptions.position = 'follow'`.
+
+```ts
+import { defineConfig } from '@rspress/core';
+import { pluginPreview } from '@rspress/plugin-preview';
+import { pluginVue } from '@rsbuild/plugin-vue';
+
+export default defineConfig({
+  // ...
+  plugins: [
+    pluginPreview({
+      previewMode: 'iframe',
+      previewLanguages: ['vue'],
+      iframeOptions: {
+        position: 'follow',
+        customEntry: ({ entryCssPath, demoPath }) => {
+          return `
+          import { createApp } from 'vue';
+          import App from ${JSON.stringify(demoPath)};
+          import ${JSON.stringify(entryCssPath)};
+          createApp(App).mount('#root');
+          `;
+        },
+        builderConfig: {
+          plugins: [pluginVue()],
+        },
+      },
+    }),
+  ],
+});
+```
+
+### Устарело: isMobile
+
+Начиная с версии v1.12.0, пожалуйста, используйте вместо этого [previewMode](#previewmode).
+
+### Устарело: iframePosition
+
+Начиная с версии v1.12.0, пожалуйста, используйте вместо этого [iframeOptions.position](#iframeoptionsposition).
+
+### previewLanguages
+
+- Тип: `string[]`
+- По умолчанию: `['jsx', 'tsx']`
+
+Языки кода, которые поддерживают предварительный просмотр. По умолчанию поддерживаются коды на jsx и tsx. Если вам нужно поддерживать другие форматы кода, такие как json/yaml, вы можете использовать эту настройку вместе с конфигурацией `previewCodeTransform` ниже.
+
+### previewCodeTransform
+
+- Тип: `(codeInfo: { language: string; code: string }) => string`
+- По умолчанию: `({ code }) => code`
+
+Настройте преобразование кода перед предварительным просмотром. Например, если вы хотите отобразить JSON Schema с помощью пользовательской логики преобразования:
+
+```json
+{
+  "type": "div",
+  "children": "Рендеринг JSON"
+}
+```
+
+Вы можете использовать следующую конфигурацию:
+
+```ts
+pluginPreview({
+  // Примечание: добавьте jsx и tsx по умолчанию
+  previewLanguages: ['jsx', 'tsx', 'json'],
+  previewCodeTransform(codeInfo) {
+    if (codeInfo.language === 'json') {
+      return `
+import React from 'react';
+
+const json = ${codeInfo.code};
+
+export default function() {
+return React.createElement(json.type, null, json.children);
+}
+`;
+    } else {
+      return codeInfo.code;
+    }
+  },
+});
+```
+
+Таким образом, окончательный рендеринг будет выполняться для кода компонента, преобразованного по пользовательской логике.
+
+:::warning Примечание
+
+Конфигурации `previewLanguages` и `previewCodeTransform` действуют только для внутренних компонентов, то есть они работают для блоков кода, объявленных в MDX-файлах, но не действуют для внешних файлов, объявленных в тегах `code`!
+
+:::
