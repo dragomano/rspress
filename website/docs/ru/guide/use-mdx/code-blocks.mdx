@@ -16,7 +16,7 @@ console.log('Привет, мир');
 ```
 ````
 
-Отобразится как:
+Отобразится так:
 
 ```js
 console.log('Привет, мир');
@@ -34,7 +34,7 @@ const HelloCodeBlockTitle = (props) => {
 ```
 ````
 
-Отобразится как:
+Отобразится так:
 
 ```jsx title="src/components/HelloCodeBlockTitle.tsx"
 const HelloCodeBlockTitle = (props) => {
@@ -42,7 +42,7 @@ const HelloCodeBlockTitle = (props) => {
 };
 ```
 
-## Блок кода из внешнего файла
+## Блок кода из файла \{#file-code-block}
 
 Вы можете использовать атрибут `file="./path/to/file"` без написания содержимого блока кода — это позволит подгрузить содержимое из внешнего файла.
 
@@ -65,7 +65,7 @@ const HelloCodeBlockTitle = (props) => {
 </Tab>
 </Tabs>
 
-Отобразится как:
+Отобразится так:
 
 ```tsx file="./_tsx-component.tsx"
 
@@ -113,7 +113,7 @@ export default defineConfig({
 </Tab>
 </Tabs>
 
-Отобразится как:
+Отобразится так:
 
 ```ts title="highlight.ts"
 console.log('Подсвечено'); // [!code highlight]
@@ -166,7 +166,7 @@ export default defineConfig({
 </Tab>
 </Tabs>
 
-Отобразится как:
+Отобразится так:
 
 ```ts {1,3-4}
 console.log('Подсвечено');
@@ -187,7 +187,7 @@ function hello() {
 ```
 ````
 
-Отобразится как:
+Отобразится так:
 
 ```ts lineNumbers
 function hello() {
@@ -219,7 +219,7 @@ const longLine =
 ```
 ````
 
-Отобразится как:
+Отобразится так:
 
 ```ts wrapCode
 const longLine =
@@ -250,7 +250,7 @@ const longLine =
 ```
 ````
 
-Отобразится как:
+Отобразится так:
 
 ```ts lineNumbers wrapCode title="example.ts"
 const longLine =
@@ -269,7 +269,7 @@ function test() {
 ```
 ````
 
-Отобразится как:
+Отобразится так:
 
 ```diff
 function test() {
@@ -318,7 +318,7 @@ export default defineConfig({
 </Tab>
 </Tabs>
 
-Отобразится как:
+Отобразится так:
 
 ```ts
 console.log('удалено'); // [!code --]
@@ -357,7 +357,7 @@ export default defineConfig({
 </Tab>
 </Tabs>
 
-Отобразится как:
+Отобразится так:
 
 ```ts
 console.log('Без ошибок и предупреждений');
@@ -396,7 +396,7 @@ export default defineConfig({
 </Tab>
 </Tabs>
 
-Отобразится как:
+Отобразится так:
 
 ```ts
 console.log('Без фокуса');
