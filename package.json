@@ -49,16 +49,16 @@
     "nx": "21.6.10",
     "path-serializer": "0.5.1",
     "playwright": "1.56.1",
-    "prettier": "3.7.3",
+    "prettier": "3.7.4",
     "prettier-plugin-packagejson": "^2.5.20",
     "tree-kill": "^1.2.2",
     "vitest": "2.1.9",
     "zx": "^8.8.5"
   },
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@10.24.0",
   "engines": {
     "node": ">=18.0.0",
-    "pnpm": ">=10.22.0"
+    "pnpm": ">=10.24.0"
   },
   "publishConfig": {
     "access": "public",
