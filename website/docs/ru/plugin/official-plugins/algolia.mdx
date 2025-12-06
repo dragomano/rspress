@@ -103,54 +103,12 @@ type Locales = Record<
 
 - Значение по умолчанию: `{}`
 
-Для настройки переведённого текста на разных языках Rspress предоставляет следующий переведённый текст, который можно импортировать с помощью оператора `import`.
+Для настройки переведённого текста на разных языках Rspress предоставляет следующий текст, который можно импортировать с помощью оператора `import`.
 
 <details>
 
-```ts
-export const ZH_LOCALES: Locales = {
-  zh: {
-    placeholder: '搜索文档',
-    translations: {
-      button: {
-        buttonText: '搜索',
-        buttonAriaLabel: '搜索',
-      },
-      modal: {
-        searchBox: {
-          clearButtonTitle: '清除查询条件',
-          clearButtonAriaLabel: '清除查询条件',
-          closeButtonText: '取消',
-          closeButtonAriaLabel: '取消',
-        },
-        startScreen: {
-          recentSearchesTitle: '搜索历史',
-          noRecentSearchesText: '没有搜索历史',
-          saveRecentSearchButtonTitle: '保存至搜索历史',
-          removeRecentSearchButtonTitle: '从搜索历史中移除',
-          favoriteSearchesTitle: '收藏',
-          removeFavoriteSearchButtonTitle: '从收藏中移除',
-        },
-        errorScreen: {
-          titleText: '无法获取结果',
-          helpText: '你可能需要检查你的网络连接',
-        },
-        footer: {
-          selectText: '选择',
-          navigateText: '切换',
-          closeText: '关闭',
-          poweredByText: '搜索提供者',
-        },
-        noResultsScreen: {
-          noResultsText: '无法找到相关结果',
-          suggestedQueryText: '你可以尝试查询',
-          reportMissingResultsText: '你认为该查询应该有结果？',
-          reportMissingResultsLinkText: '点击反馈',
-        },
-      },
-    },
-  },
-} as const;
+```ts file="<root>/../packages/plugin-algolia/src/runtime/locales.ts"
+
 ```
 
 </details>
@@ -160,9 +118,9 @@ Rspress по умолчанию предоставляет перевод на �
 - Пример:
 
 ```tsx
-import { Search as PluginAlgoliaSearch, ZH_LOCALES } from '@rspress/plugin-algolia/runtime';
+import { Search as PluginAlgoliaSearch, RU_LOCALES } from '@rspress/plugin-algolia/runtime';
 
-<PluginAlgoliaSearch locales={ZH_LOCALES} />
+<PluginAlgoliaSearch locales={RU_LOCALES} />
 // или
 <PluginAlgoliaSearch
   locales={{
