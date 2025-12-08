@@ -8,6 +8,7 @@ import {
 } from '@rspress/core/theme-original';
 import {
   Search as PluginAlgoliaSearch,
+  RU_LOCALES,
   ZH_LOCALES,
 } from '@rspress/plugin-algolia/runtime';
 import {
@@ -67,7 +68,7 @@ const Search = () => {
           facetFilters: [`lang:${lang}`],
         },
       }}
-      locales={ZH_LOCALES}
+      locales={{ ...ZH_LOCALES, ...RU_LOCALES }}
     />
   );
 };
