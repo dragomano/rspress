@@ -22,7 +22,7 @@
 Файл `theme/index.tsx` может выглядеть следующим образом:
 
 ```tsx title="theme/index.tsx"
-import { Layout as BasicLayout } from '@rspress/core/theme';
+import { Layout as BasicLayout } from '@rspress/core/theme-original';
 
 const Layout = () => (
   <BasicLayout beforeNavTitle={<div>какое-то содержимое</div>} />
@@ -30,17 +30,17 @@ const Layout = () => (
 
 export { Layout };
 
-export * from '@rspress/core/theme';
+export * from '@rspress/core/theme-original';
 ```
 
-С одной стороны, вам нужно экспортировать объект конфигурации темы через `export`, а с другой — переэкспортировать всё именованное содержимое из `@rspress/core/theme` с помощью `export * from '@rspress/core/theme'`. Это необходимо, чтобы ваша тема работала корректно.
+С одной стороны, вам нужно экспортировать объект конфигурации темы через `export`, а с другой — переэкспортировать всё именованное содержимое из `@rspress/core/theme` с помощью `export * from '@rspress/core/theme-original'`. Это необходимо, чтобы ваша тема работала корректно.
 
 ### 2. Использование слотов
 
 Стоит отметить, что компонент `Layout` предоставляет ряд пропсов-слотов для расширения разметки. С их помощью вы можете кастомизировать стандартную тему. Например, можно изменить компонент `Layout` следующим образом:
 
 ```tsx title="theme/index.tsx"
-import { Layout as BasicLayout } from '@rspress/core/theme';
+import { Layout as BasicLayout } from '@rspress/core/theme-original';
 
 // Ниже показаны все доступные пропсы-слоты
 const Layout = () => (
@@ -94,7 +94,7 @@ const Layout = () => (
 
 export { Layout };
 // re-export
-export * from '@rspress/core/theme';
+export * from '@rspress/core/theme-original';
 ```
 
 ### 3. Кастомная главная страница и страница 404
@@ -105,7 +105,7 @@ export * from '@rspress/core/theme';
 import {
   Search as BasicSearch,
   Layout as BasicLayout,
-} from '@rspress/core/theme';
+} from '@rspress/core/theme-original';
 
 // Кастомная главная страница
 const HomeLayout = () => <div>Главная</div>;
@@ -130,7 +130,7 @@ const Search = () => (
 );
 export { Search, HomeLayout, NotFoundLayout };
 // re-export
-export * from '@rspress/core/theme';
+export * from '@rspress/core/theme-original';
 ```
 
 Конечно, в процессе разработки вам может понадобиться доступ к данным текущей страницы — их можно получить через [`Runtime API`](/api/client-api/api-runtime).
@@ -164,7 +164,7 @@ export * from '@rspress/core/theme';
 
 ```tsx
 // theme/index.tsx
-import { Layout as BasicLayout } from '@rspress/core/theme';
+import { Layout as BasicLayout } from '@rspress/core/theme-original';
 
 function Layout() {
   return <BasicLayout />;
@@ -173,7 +173,7 @@ function Layout() {
 // Экспортируем компонент Layout и функцию настройки
 export { Layout };
 // Переэкспортируем всё содержимое стандартной темы, чтобы конфигурация вашей темы работала корректно
-export * from '@rspress/core/theme';
+export * from '@rspress/core/theme-original';
 ```
 
 ### 2. Runtime API
@@ -245,7 +245,7 @@ function Layout() {
 Если вы хотите полностью использовать готовую функциональность поиска, просто импортируйте компонент `Search`:
 
 ```tsx
-import { Search } from '@rspress/core/theme';
+import { Search } from '@rspress/core/theme-original';
 
 function MySearch() {
   return <Search />;
@@ -258,7 +258,7 @@ function MySearch() {
 
 ```tsx
 import { useState } from 'react';
-import { SearchPanel } from '@rspress/core/theme';
+import { SearchPanel } from '@rspress/core/theme-original';
 
 function MySearch() {
   const [focused, setFocused] = useState(false);
@@ -278,7 +278,7 @@ function MySearch() {
 Если вы хотите использовать стандартную логику полнотекстового поиска, можно воспользоваться хуком `useFullTextSearch`, например:
 
 ```tsx
-import { useFullTextSearch } from '@rspress/core/theme';
+import { useFullTextSearch } from '@rspress/core/theme-original';
 
 function MySearch() {
   const { initialized, search } = useFullTextSearch();
