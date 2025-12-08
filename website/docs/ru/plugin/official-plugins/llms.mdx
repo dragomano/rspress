@@ -1,3 +1,7 @@
+---
+tag: новинка
+---
+
 # @rspress/plugin-llms <SourceCode href="https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-llms" />
 
 import { SourceCode } from '@rspress/core/theme';
@@ -73,11 +77,10 @@ export * from '@rspress/core/theme';
 ```mdx title="docs/hello-world.mdx"
 # Привет, мир
 
-{/* prettier-ignore */}
 <LlmsContainer>
   <LlmsCopyButton />
-  <LlmsViewOptions />
   {/* Компонент LlmsViewOptions можно добавить по необходимости */}
+  <LlmsViewOptions />
 </LlmsContainer>
 
 Пример документа
@@ -328,8 +331,7 @@ pluginLlms({
 - **Тип**: `LlmsCopyButtonProps`
 
 ```ts
-interface LlmsCopyButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface LlmsCopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   textByLang?: Record<string, string>;
   text?: string;
 }
@@ -375,8 +377,7 @@ type Option =
   | 'chatgpt'
   | 'claude';
 
-interface LlmsViewOptionsProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface LlmsViewOptionsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   options?: Option[];
   textByLang?: Record<string, string>;
   text?: string;
